@@ -1,0 +1,14 @@
+     # 大文件 / 数据集（不要上传）
+data/
+records/
+results/
+
+# 模型权重（很大）
+*.pth
+*.pt
+*.ckpt
+
+# Python 产生的中间垃圾文件
+__pycache__/
+*.pyc
+*.log
