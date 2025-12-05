@@ -1,41 +1,58 @@
-from sklearn.metrics import roc_auc_score, f1_score, recall_score, precision_score
+# modules/metrics.py
 
+# 文本生成指标，不依赖 sklearn
 from pycocoevalcap.bleu.bleu import Bleu
-from pycocoevalcap.meteor import Meteor
+# from pycocoevalcap.meteor import Meteor   # 没 Java，先关掉
 from pycocoevalcap.rouge import Rouge
+from pycocoevalcap.cider.cider import Cider   # 新增 CIDEr
 
 
 def compute_scores(gts, res):
     """
-    Performs the MS COCO evaluation using the Python 3 implementation (https://github.com/salaniz/pycocoevalcap)
+    使用 pycocoevalcap 计算生成报告的文本指标：
+    - BLEU_1 ~ BLEU_4
+    - ROUGE_L
+    - CIDEr
 
-    :param gts: Dictionary with the image ids and their gold captions,
-    :param res: Dictionary with the image ids ant their generated captions
-    :print: Evaluation score (the mean of the scores of all the instances) for each measure
+    gts: {id: [ref_sentence1, ref_sentence2, ...]}
+    res: {id: [gen_sentence]}
     """
 
-    # Set up scorers
     scorers = [
         (Bleu(4), ["BLEU_1", "BLEU_2", "BLEU_3", "BLEU_4"]),
-        (Meteor(), "METEOR"),
-        (Rouge(), "ROUGE_L")
+        # (Meteor(), "METEOR"),  # 如以后配好了 Java 再打开
+        (Rouge(), "ROUGE_L"),
+        (Cider(), "CIDEr"),
     ]
+
     eval_res = {}
-    # Compute score for each metric
+
     for scorer, method in scorers:
+        # 有的实现带 verbose，有的没有，所以做一个兼容
         try:
             score, scores = scorer.compute_score(gts, res, verbose=0)
         except TypeError:
             score, scores = scorer.compute_score(gts, res)
-        if type(method) == list:
+
+        if isinstance(method, list):
+            # BLEU 返回 4 个分数
             for sc, m in zip(score, method):
                 eval_res[m] = sc
         else:
             eval_res[method] = score
+
     return eval_res
 
 
 def compute_mlc(gt, pred, label_set):
+    """
+    多标签分类指标（AUC、F1、Recall、Precision）
+    注意：只有调用这个函数时才会 import sklearn，
+    这样就不会影响你单独测试文本指标。
+    """
+    # ⬇⬇⬇ 把 sklearn 的导入挪到函数内部
+    from sklearn.metrics import roc_auc_score, f1_score, recall_score, precision_score
+
     res_mlc = {}
     avg_aucroc = 0
     for i, label in enumerate(label_set):

@@ -1,6 +1,10 @@
 import torch
 import argparse
 import numpy as np
+import os
+import csv
+CSV_NAME = "results_mvsem_ccra.csv"  # 👉 给这次实验起个文件名
+
 from modules.tokenizers import Tokenizer
 from modules.dataloaders import R2DataLoader
 from modules.metrics import compute_scores
@@ -108,6 +112,24 @@ def main():
     # get function handles of loss and metrics
     criterion = compute_loss
     metrics = compute_scores
+
+    # 下面是新增的：
+    # === 把这次实验的结果写进专属的 CSV 文件 ===
+    csv_path = CSV_NAME  # 每个实验一个文件，比如 results_mvsem_ccra.csv
+    file_exists = os.path.exists(csv_path)
+
+    with open(csv_path, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+
+        # 第一次写文件时，先写表头
+        if not file_exists:
+            writer.writerow(["split", "epoch"] + list(metrics.keys()))
+
+        # 这里先写 split / epoch，后面写每一个 metric 的值
+        # 现在是单次测试，就写成 split='test', epoch=-1
+        writer.writerow(["test", -1] + [metrics[k] for k in metrics.keys()])
+    #第一次跑 test，会自动创建一个 results.csv，写入表头+第一行数据
+    # 以后如果你换模型、换 config，可以把 split 换成别的，比如 "baseline", "ccra_mvsem"，就能一个文件里多模型对比了
 
     # build trainer and start to train
     tester = Tester(model, criterion, metrics, args, test_dataloader)
