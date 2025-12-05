@@ -1,3 +1,5 @@
+DEBUG = False
+
 import os
 from abc import abstractmethod
 
