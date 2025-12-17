@@ -1,0 +1,26 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="train_iu_xray" type="PythonConfigurationType" factoryName="Python">
+    <module name="R2Gen-main" />
+    <option name="ENV_FILES" value="CUDA_VISIBLE_DEVICES=0" />
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <envs>
+      <env name="PYTHONUNBUFFERED" value="1" />
+    </envs>
+    <option name="SDK_HOME" value="" />
+    <option name="SDK_NAME" value="Remote Python 3.9.25 (sftp://root@connect.bjb1.seetacloud.com:29093/root/miniconda3/envs/ccra/bin/python)" />
+    <option name="WORKING_DIRECTORY" value="D:\CXR\R2Gen\R2Gen-MVSEM" />
+    <option name="IS_MODULE_SDK" value="false" />
+    <option name="ADD_CONTENT_ROOTS" value="true" />
+    <option name="ADD_SOURCE_ROOTS" value="true" />
+    <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+    <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_train.py" />
+    <option name="PARAMETERS" value="--image_dir /root/autodl-fs/iu_xray/iu_xray/images --ann_path /root/autodl-fs/iu_xray/iu_xray/annotation.json --dataset_name iu_xray --max_seq_length 60 --threshold 3 --batch_size 4 --epochs 1 --save_dir results/iu_xray_debug_mvsem --seed 9223" />
+    <option name="SHOW_COMMAND_LINE" value="false" />
+    <option name="EMULATE_TERMINAL" value="false" />
+    <option name="MODULE_MODE" value="false" />
+    <option name="REDIRECT_INPUT" value="false" />
+    <option name="INPUT_FILE" value="" />
+    <method v="2" />
+  </configuration>
+</component>

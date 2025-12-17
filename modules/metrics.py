@@ -5,6 +5,7 @@ from pycocoevalcap.bleu.bleu import Bleu
 # from pycocoevalcap.meteor import Meteor   # 没 Java，先关掉
 from pycocoevalcap.rouge import Rouge
 from pycocoevalcap.cider.cider import Cider   # 新增 CIDEr
+# test sync
 
 
 def compute_scores(gts, res):

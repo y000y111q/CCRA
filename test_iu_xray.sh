@@ -1,3 +1,13 @@
+#!/bin/bash
+
+# 1. 激活环境
+source /root/miniconda3/bin/activate ccra
+
+# 2. 进到项目目录
+cd /root/autodl-tmp/CCRA
+
+# 3. 跑训练
+
 python main_test.py \
 --image_dir data/iu_xray/images/ \
 --ann_path data/iu_xray/annotation.json \

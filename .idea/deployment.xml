@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@connect.bjb1.seetacloud.com:46477 password" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="root@connect.bjb1.seetacloud.com:29093 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/autodl-tmp/CCRA" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@connect.bjb1.seetacloud.com:46477 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/autodl-tmp/CCRA" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="root@connect.bjb1.seetacloud.com:56421 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/autodl-tmp/CCRA " local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

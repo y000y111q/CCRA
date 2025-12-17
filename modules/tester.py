@@ -58,6 +58,11 @@ class BaseTester(object):
         return device, list_ids
 
     def _load_checkpoint(self, load_path):
+        # 新加的防呆判断：如果没传 --load，就不要去 torch.load('None')
+        if load_path is None or str(load_path).lower() == "none" or load_path == "":
+            self.logger.info("No checkpoint provided, skip loading weights.")
+            return
+        # 这里保持你原来的逻辑，如果原来还有 join save_dir 的操作，也一起保留
         load_path = str(load_path)
         self.logger.info("Loading checkpoint: {} ...".format(load_path))
         checkpoint = torch.load(load_path)

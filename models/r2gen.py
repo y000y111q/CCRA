@@ -21,7 +21,7 @@ class R2GenModel(nn.Module):
         self.ccra = CCRA(
             d_model=2048,   # ← 关键就这一行，从 512 改成 2048
             nhead=8,        # 2048 / 8 = 256，每个 head 256 维，合理
-            num_layers=2,
+            num_layers=4,
             dim_ff=4096,    # 前馈层维度，先用 2 倍 2048，别太大，CPU 也扛得住
             dropout=0.1,
         )
